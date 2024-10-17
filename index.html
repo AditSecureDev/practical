@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      pre {
+        background-color: #282c34;
+        color: #61dafb;
+        padding: 15px;
+        border-radius: 5px;
+        font-size: 14px;
+        overflow-x: auto;
+      }
+      .copy-btn {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <!-- place navbar here -->
+    </header>
+    <main>
+      <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <div class="container">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button
+            class="navbar-toggler d-lg-none"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapsibleNavId"
+            aria-controls="collapsibleNavId"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" href="index.html" aria-current="page"
+                  >INS <span class="visually-hidden">(current)</span></a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">AI</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="gp.html">GP</a>
+              </li>
+            </ul>
+            <form class="d-flex my-2 my-lg-0">
+              <input
+                class="form-control me-sm-2"
+                type="text"
+                placeholder="Search"
+              />
+              <button
+                class="btn btn-outline-success my-2 my-sm-0"
+                type="submit"
+              >
+                Search
+              </button>
+            </form>
+          </div>
+        </div>
+      </nav>
+      <h1>Pratical no 1 Encryption</h1>
+      <div class="container mt-5">
+        <div class="card position-relative">
+          <div class="card-header bg-primary text-white">Java Code Example</div>
+          <div class="card-body">
+            <button class="btn btn-secondary copy-btn" onclick="copyCode()">
+              Copy Code
+            </button>
+            <pre id="code">
+    import java.io.*;
+    import java.util.*;
+    public class Encryption{ 
+      public static final String ALPHABETS = "abcdefghijklmnopqrstuvwxyz";
+    
+      public static String encrypt(String message, int shiftKey) {
+        message = message.toLowerCase();
+        String cipherText = "";
+        for (int ii = 0; ii < message.length(); ii++) {
+          int charPosition = ALPHABETS.indexOf(message.charAt(ii));
+          int keyVal = (shiftKey + charPosition) % 26;
+          char replaceVal = ALPHABETS.charAt(keyVal);
+          cipherText += replaceVal;
+        }
+        return cipherText;
+      }
+    
+      public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String message = new String();
+        int key = 0;
+        System.out.print("Enter the String for Encryption:");
+        message = sc.next();
+    
+        System.out.println("\n\nEnter Shift Key:");
+        key = sc.nextInt();
+        System.out.println("\nEncrpyted msg:" + encrypt(message, key));
+      } 
+    }
+                </pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Bootstrap JS and dependencies -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+      <script>
+        function copyCode() {
+          var code = document.getElementById("code").innerText;
+          navigator.clipboard
+            .writeText(code)
+            .then(() => {
+              alert("Code copied to clipboard!");
+            })
+            .catch(() => {
+              alert("Failed to copy code!");
+            });
+        }
+      </script>
+
+      <br /><br />
+      <h2>Pratical no 1 Decryrption</h2>
+      <div class="card position-relative mt-4">
+        <div class="card-header bg-success text-white">
+          Java Decryption Code Example
+        </div>
+        <div class="card-body">
+          <button
+            class="btn btn-secondary copy-btn"
+            onclick="copyDecryptionCode()"
+          >
+            Copy Code
+          </button>
+          <pre id="decryption-code">
+    import java.io.*;
+    import java.util.*;
+    public class Decryption { 
+      public static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+    
+      public static String decrypt(String cipherText, int shiftKey) {
+        cipherText = cipherText.toLowerCase();
+        String message = "";
+        for (int ii = 0; ii < cipherText.length(); ii++) {
+          int charPosition = ALPHABET.indexOf(cipherText.charAt(ii));
+          int keyVal = (charPosition - shiftKey) % 26;
+          if (keyVal < 0) {
+            keyVal = ALPHABET.length() + keyVal;
+          }
+          char replaceVal = ALPHABET.charAt(keyVal);
+          message += replaceVal;
+        }
+        return message;
+      }
+    
+      public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String message = new String();
+        int key = 0;
+        System.out.print("Enter the String for Encryption:");
+        message = sc.next();
+    
+        System.out.println("\n\nEnter Shift Key:");
+        key = sc.nextInt();
+        System.out.println("\nDecrypted Message:" + decrypt(message, key));
+    
+      }
+    }
+            </pre
+          >
+        </div>
+      </div>
+
+      <script>
+        function copyDecryptionCode() {
+          var code = document.getElementById("decryption-code").innerText;
+          navigator.clipboard
+            .writeText(code)
+            .then(() => {
+              alert("Code copied to clipboard!");
+            })
+            .catch(() => {
+              alert("Failed to copy code!");
+            });
+        }
+      </script>
+
+      <br /><br />
+
+      <h2>Pratical no 2 monoalphabetic-code</h2>
+      <div class="card position-relative mt-4">
+        <div class="card-header bg-info text-white">
+          Java Monoalphabetic Encryption/Decryption Example
+        </div>
+        <div class="card-body">
+          <button
+            class="btn btn-secondary copy-btn"
+            onclick="copyMonoalphabeticCode()"
+          >
+            Copy Code
+          </button>
+          <pre id="monoalphabetic-code">
+package pkg_mono;
+
+import java.util.Scanner;
+
+public class Monoalphabetic {
+
+    public static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+
+    public static String Encrypt(String plainText, int Key) {
+        plainText = plainText.toLowerCase();
+        String cipherText = "";
+        for (int i = 0; i < plainText.length(); i++) {
+            int charPositionPT = ALPHABET.indexOf(plainText.charAt(i));
+            int finalPosition = charPositionPT + Key;
+            if (finalPosition > 25) {
+                finalPosition = finalPosition - 26;
+            }
+            char replaceVal = ALPHABET.charAt(finalPosition);
+            cipherText += replaceVal;
+        }
+        return cipherText;
+    }
+
+    public static String Decrypt(String cipherText, int Key) {
+        cipherText = cipherText.toLowerCase();
+        String plainText = "";
+        for (int i = 0; i < cipherText.length(); i++) {
+            int charPositionCT = ALPHABET.indexOf(cipherText.charAt(i));
+            int finalPosition = charPositionCT - Key;
+            if (finalPosition < 0) {
+                finalPosition = finalPosition + 26;
+            }
+            char replaceVal = ALPHABET.charAt(finalPosition);
+            plainText += replaceVal;
+        }
+        return plainText;
+    }
+
+    public static void main(String[] args) {
+        // To read input from the keyboard
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the String for Encryption: ");
+        String message = new String();
+        message = sc.next();
+
+        System.out.println("Enter the key for Encryption: ");
+        int key = sc.nextInt();
+        System.out.println("Encrypted Text:");
+        System.out.println(Encrypt(message, key));
+        System.out.println("Decrypted Text:");
+        System.out.println(Decrypt((Encrypt(message, key)), key));
+        sc.close();
+    }
+}
+        </pre
+          >
+        </div>
+      </div>
+
+      <script>
+        function copyMonoalphabeticCode() {
+          var code = document.getElementById("monoalphabetic-code").innerText;
+          navigator.clipboard
+            .writeText(code)
+            .then(() => {
+              alert("Code copied to clipboard!");
+            })
+            .catch(() => {
+              alert("Failed to copy code!");
+            });
+        }
+      </script>
+
+<h2>Practical no 3 Vrenam Cipher</h2>
+<div class="card position-relative mt-4">
+  <div class="card-header bg-warning text-dark">
+    Python One-Time Pad Encryption/Decryption Example
+  </div>
+  <div class="card-body">
+    <button class="btn btn-secondary copy-btn" onclick="copyPythonCode()">
+      Copy Code
+    </button>
+    <pre id="python-otp-code">
+def stringEncryption(text, key):
+    # Initializing cipherText
+    cipherText = ""
+
+    # Initialize cipher array of key length
+    # which stores the sum of corresponding no.'s
+    # of plainText and key.
+    cipher = []
+    for i in range(len(key)):
+        cipher.append(ord(text[i]) - ord('A') + ord(key[i])-ord('A'))
+
+    # If the sum is greater than 25
+    # subtract 26 from it
+    # and store that resulting value
+    for i in range(len(key)):
+        if cipher[i] > 25:
+            cipher[i] = cipher[i] - 26
+
+    # Converting the no.'s into integers
+    # Convert these integers to corresponding
+    # characters and add them up to cipherText
+    for i in range(len(key)):
+        x = cipher[i] + ord('A')
+        cipherText += chr(x)
+
+    # Returning the cipherText
+    return cipherText
+
+
+
+# Method 2
+# Returning plain text
+def stringDecryption(s, key):
+    # Initializing plain text
+    plainText = ""
+
+    # Initializing integer array of key length
+    # which stores difference
+    # of corresponding no.'s of
+    # each character of cipherText and key
+    plain = []
+
+    # Running for loop for each character
+    # subtracting and storing in the array
+    for i in range(len(key)):
+        plain.append(ord(s[i]) - ord('A') - (ord(key[i]) - ord('A')))
+
+    # If the difference is less than 0
+    # add 26 and store it in the array.
+    for i in range(len(key)):
+        if plain[i] < 0:
+            plain[i] = plain[i] + 26
+
+    # Converting int to corresponding char
+    # add them up to plainText
+    for i in range(len(key)):
+        x = plain[i] + ord('A')
+        plainText += chr(x)
+
+    # Returning plainText
+    return plainText
+
+
+# Main execution starts here
+plainText = "Hello"
+
+# Declaring key
+key = "MONEY"
+
+# Converting plain text to upper case
+# function call to stringEncryption
+encryptedText = stringEncryption(plainText.upper(), key.upper())
+
+# Printing cipher Text
+print("Cipher Text - " + encryptedText)
+
+# Calling stringDecryption with encryptedText and key as parameters
+print("Message - " + stringDecryption(encryptedText, key.upper()))
+    </pre>
+  </div>
+</div>
+
+<script>
+  function copyPythonCode() {
+    var code = document.getElementById("python-otp-code").innerText;
+    navigator.clipboard
+      .writeText(code)
+      .then(() => {
+        alert("Code copied to clipboard!");
+      })
+      .catch(() => {
+        alert("Failed to copy code!");
+      });
+  }
+</script>
+
+<br>
+<br>
+<h2>Pratical no 4 Rail Fence Cipher </h2>
+
+<div class="card position-relative mt-4">
+    <div class="card-header bg-warning text-dark">
+        Java Rail Fence Cipher Example
+    </div>
+    <div class="card-body">
+        <button class="btn btn-secondary copy-btn" onclick="copyRailFenceCode()">Copy Code</button>
+        <pre id="rail-fence-code">
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Railfence {
+    public static void Encrypt(String str, int n) {
+        // if depth = 1
+        if (n == 1) {
+            System.out.print(str);
+            return;
+        }
+        
+        char[] str1 = str.toCharArray();
+        int len = str.length();
+        String[] arr = new String[n];
+        Arrays.fill(arr, "");
+        
+        int row = 0;
+        boolean down = true;
+        
+        for (int i = 0; i < len; i++) {
+            arr[row] = arr[row] + (str1[i]);
+            if (row == n - 1) {
+                down = false;
+            } else if (row == 0) {
+                down = true;
+            }
+            if (down) {
+                row++;
+            } else {
+                row--;
+            }
+        }
+        
+        for (int i = 0; i < n; i++) {
+            System.out.print(arr[i]);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the String for Encryption: ");
+        String str = sc.next(); // plaintext from user
+        int n = 3; // key / rows
+        System.out.println("Encrypted String:");
+        Encrypt(str, n);
+    }
+}
+        </pre>
+    </div>
+</div>
+
+<script>
+    function copyRailFenceCode() {
+        var code = document.getElementById("rail-fence-code").innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            alert("Code copied to clipboard!");
+        }).catch(() => {
+            alert("Failed to copy code!");
+        });
+    }
+</script>
+
+<br><br>
+<h2>Practical no 5 Simple Columnar Technique.</h2>
+<div class="card position-relative mt-4">
+    <div class="card-header bg-warning text-dark">
+        Python Columnar Transposition Cipher Example
+    </div>
+    <div class="card-body">
+        <button class="btn btn-secondary copy-btn" onclick="copyColumnarCipherCode()">Copy Code</button>
+        <pre id="columnar-cipher-code">
+import math
+
+key = "HACK"
+
+# Encryption
+def encryptMessage(msg):
+    cipher = ""
+
+    # track key indices
+    k_indx = 0
+
+    msg_len = float(len(msg))
+    msg_lst = list(msg)
+    key_lst = sorted(list(key))
+
+    # calculate column of the matrix
+    col = len(key)
+
+    # calculate maximum row of the matrix
+    row = int(math.ceil(msg_len / col))
+
+    # add the padding character '_' in empty
+    # the empty cell of the matrix
+    fill_null = int((row * col) - msg_len)
+    msg_lst.extend('_' * fill_null)
+
+    # create Matrix and insert message and
+    # padding characters row-wise
+    matrix = [msg_lst[i: i + col]
+              for i in range(0, len(msg_lst), col)]
+
+    # read matrix column-wise using key
+    for _ in range(col):
+        curr_idx = key.index(key_lst[k_indx])
+        cipher += ''.join([row[curr_idx]
+                           for row in matrix])
+        k_indx += 1
+
+    return cipher
+
+msg = input("Enter your message: ")
+cipher = encryptMessage(msg)
+print("Encrypted Message: {}".format(cipher))
+        </pre>
+    </div>
+</div>
+
+<script>
+    function copyColumnarCipherCode() {
+        var code = document.getElementById("columnar-cipher-code").innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            alert("Code copied to clipboard!");
+        }).catch(() => {
+            alert("Failed to copy code!");
+        });
+    }
+</script>
+
+
+
+<h2>Pratical no 6 RSA</h2>
+<div class="card position-relative mt-4">
+    <div class="card-header bg-warning text-dark">
+        Java RSA Encryption Example
+    </div>
+    <div class="card-body">
+        <button class="btn btn-secondary copy-btn" onclick="copyRSACode()">Copy Code</button>
+        <pre id="rsa-code">
+import java.util.Scanner; 
+
+public class RSA { 
+
+    public static int pvtkey;  
+
+    public static void ComputeRSA(int p, int q) { 
+        int N; 
+        N = p * q; 
+      
+        // Step 2: Calculate Derived Number 
+        int m; 
+        m = (p - 1) * (q - 1); 
+
+        int e;  
+        Scanner sc = new Scanner(System.in); 
+        System.out.println("Enter value for public key"); 
+        e = sc.nextInt(); 
+        boolean isPrime = checkForPrime(e); 
+
+        // Checking if e is greater than 1 and lesser than derived number m 
+        if (e > 1 && e < m) { 
+            if (isPrime) { // isPrime for e 
+                // Step 4: Constructing the table 
+                int[] a = new int[25]; 
+                int[] b = new int[25]; 
+                int[] d = new int[25]; 
+                int[] k = new int[25]; 
+              
+                // Giving the default values 
+                // 1st row 
+                a[0] = 1; 
+                b[0] = 0; 
+                d[0] = m; 
+                k[0] = 0; 
+                
+                // 2nd row 
+                a[1] = 0; 
+                b[1] = 1; 
+                d[1] = e; 
+                k[1] = d[0] / d[1]; 
+              
+                // Loop that checks if d = 1 and stops at that point  
+                System.out.println("a \t b \t d \t k"); 
+                int i = 2; 
+                while (d[i - 1] != 1) { 
+                    a[i] = a[i - 2] - (a[i - 1] * k[i - 1]); 
+                    b[i] = b[i - 2] - (b[i - 1] * k[i - 1]); 
+                    d[i] = d[i - 2] - (d[i - 1] * k[i - 1]); 
+                    k[i] = d[i - 1] / d[i]; 
+                    System.out.println(a[i] + "\t " + b[i] + "\t " + d[i] + "\t " + k[i]); 
+                    
+                    if (d[i] == 1) { 
+                        pvtkey = b[i]; 
+                        break; 
+                    } else { 
+                        i++; 
+                    } 
+                }
+                
+                if (pvtkey > m) { 
+                    pvtkey = pvtkey % m; 
+                } 
+                if (pvtkey < 0) { 
+                    pvtkey = pvtkey + m; 
+                } 
+              
+                // Printing the public and private key 
+                System.out.println(); 
+                System.out.println("*************************************************");  
+                System.out.println("Public Key: " + e); 
+                System.out.println("Private Key: " + pvtkey); 
+                System.out.println("*************************************************");  
+            } else {
+                System.out.println("The public key you chose is not a prime number.");  
+            } 
+        } else {
+            System.out.println("The public key you chose is bigger than derived number " + m);  
+        } 
+    } 
+
+    public static boolean checkForPrime(int inputNumber) { 
+        boolean isItPrime = true; 
+      
+        if(inputNumber <= 1) { 
+            isItPrime = false; 
+            return isItPrime; 
+        } else { 
+            for (int i = 2; i <= inputNumber / 2; i++) { 
+                if ((inputNumber % i) == 0) { 
+                    isItPrime = false; 
+                    break; 
+                } 
+            } 
+            return isItPrime; 
+        } 
+    } 
+
+    public static void main(String[] args) { 
+        Scanner sc = new Scanner(System.in); 
+        System.out.println("Enter value for p(prime no. 1)- "); 
+        int p; 
+        p = sc.nextInt(); 
+        boolean isPrime = checkForPrime(p); 
+        if(isPrime) { 
+            System.out.println("Enter value for q(prime no. 2)- "); 
+            int q; 
+            q = sc.nextInt(); 
+            isPrime = checkForPrime(q); 
+            if(isPrime) { 
+                ComputeRSA(p, q); 
+            } else {
+                System.out.println("q is not a prime number."); 
+            } 
+        } else {
+            System.out.println("p is not a prime number."); 
+        } 
+    } 
+}
+        </pre>
+    </div>
+</div>
+
+<script>
+    function copyRSACode() {
+        var code = document.getElementById("rsa-code").innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            alert("Code copied to clipboard!");
+        }).catch(() => {
+            alert("Failed to copy code!");
+        });
+    }
+</script>
+
+
+<h2>Pratical no 7 Diffie-Hellman</h2>
+<div class="card position-relative mt-4">
+    <div class="card-header bg-warning text-dark">
+        Java Diffie-Hellman Key Exchange Example
+    </div>
+    <div class="card-body">
+        <button class="btn btn-secondary copy-btn" onclick="copyDFHCode()">Copy Code</button>
+        <pre id="dfh-code">
+import java.util.Scanner;
+
+public class DFH {
+    public static void ComputeDF(double q, double p) {
+        // Step 2: Compute CipherKey for Alice and Bob
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter private key for Alice:");
+        double pvtAlice = sc.nextInt();
+        System.out.println("Enter private key for Bob:");
+        double pvtBob = sc.nextInt();
+        
+        double cipherKeyAlice, cipherKeyBob;
+        cipherKeyAlice = Math.pow(p, pvtAlice) % q;
+        cipherKeyBob = Math.pow(p, pvtBob) % q;
+
+        // Step 3: Compute Shared Secret Key                       
+        double SecretKeyAlice = Math.pow(cipherKeyBob, pvtAlice) % q;
+        double SecretKeyBob = Math.pow(cipherKeyAlice, pvtBob) % q;
+        
+        if (SecretKeyAlice == SecretKeyBob) {
+            System.out.println("Shared Secret Key = " + (int) SecretKeyAlice);
+        } else {
+            System.out.println("Your values don't match. Please try again.");
+        }
+        sc.close();
+    }
+
+    public static boolean checkForPrime(double inputNumber) {
+        boolean isItPrime = true;
+        if (inputNumber <= 1) {
+            isItPrime = false;
+            return isItPrime;
+        } else {
+            for (int i = 2; i <= inputNumber / 2; i++) {
+                if ((inputNumber % i) == 0) {
+                    isItPrime = false;
+                    break;
+                }
+            }
+            return isItPrime;
+        }
+    }
+
+    public static void main(String[] args) {
+        // Step 1: take q and p as input
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter value for q(prime no.)- ");
+        double q;
+        q = sc.nextInt();
+        boolean IsPrime = checkForPrime(q);
+        
+        if (IsPrime) {
+            System.out.println("Enter value for p(primitive root of q)- ");
+            double p;
+            p = sc.nextInt();
+            ComputeDF(q, p);
+        } else {
+            System.out.println("The value you entered for q is not a prime number. Please try again.");
+        }
+    }
+}
+        </pre>
+    </div>
+</div>
+
+<script>
+    function copyDFHCode() {
+        var code = document.getElementById("dfh-code").innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            alert("Code copied to clipboard!");
+        }).catch(() => {
+            alert("Failed to copy code!");
+        });
+    }
+</script>
+
+
+<h2>Practical no 8 MD5</h2>
+<div class="card position-relative mt-4">
+    <div class="card-header bg-warning text-dark">
+        Python MD5 Hashing Example
+    </div>
+    <div class="card-body">
+        <button class="btn btn-secondary copy-btn" onclick="copyMD5Code()">Copy Code</button>
+        <pre id="md5-code">
+# working of MD5 (string - hexadecimal)
+import hashlib
+
+# prints all available algorithms 
+print ("The available algorithms are : ", end ="") 
+print (hashlib.algorithms_guaranteed) 
+
+# initializing string
+str2hash = "Hellothere"
+
+# encoding "Hellothere" using encode()
+# then sending to md5()
+result = hashlib.md5(str2hash.encode())
+
+# printing the equivalent hexadecimal value.
+print("The hexadecimal equivalent of hash is : ", end ="")
+print(result.hexdigest())
+        </pre>
+    </div>
+</div>
+
+<script>
+    function copyMD5Code() {
+        var code = document.getElementById("md5-code").innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            alert("Code copied to clipboard!");
+        }).catch(() => {
+            alert("Failed to copy code!");
+        });
+    }
+</script>
+
+<h2>Pratical no 9 SHA</h2>
+<div class="card position-relative mt-4">
+    <div class="card-header bg-warning text-dark">
+        Python SHA Hashing Example
+    </div>
+    <div class="card-body">
+        <button class="btn btn-secondary copy-btn" onclick="copySHAHashCode()">Copy Code</button>
+        <pre id="sha-code">
+# SHA hash algorithms
+import hashlib
+
+# initializing string 
+str = "Informationsecurity"
+
+# encoding "Informationsecurity" using encode() 
+# then sending to SHA256() 
+result = hashlib.sha256(str.encode()) 
+
+# printing the equivalent hexadecimal value. 
+print("The hexadecimal equivalent of SHA256 is : ") 
+print(result.hexdigest()) 
+print ("\r") 
+
+# **********
+
+# initializing string 
+str = "Informationsecurity"
+
+# encoding "Informationsecurity" using encode() 
+# then sending to SHA512() 
+result = hashlib.sha512(str.encode()) 
+
+# printing the equivalent hexadecimal value. 
+print("The hexadecimal equivalent of SHA512 is : ") 
+print(result.hexdigest()) 
+print ("\r") 
+
+# **********
+
+# initializing string 
+str = "Informationsecurity"
+
+# encoding "Informationsecurity" using encode() 
+# then sending to SHA1() 
+result = hashlib.sha1(str.encode()) 
+
+# printing the equivalent hexadecimal value. 
+print("The hexadecimal equivalent of SHA1 is : ") 
+print(result.hexdigest())
+        </pre>
+    </div>
+</div>
+
+<script>
+    function copySHAHashCode() {
+        var code = document.getElementById("sha-code").innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            alert("Code copied to clipboard!");
+        }).catch(() => {
+            alert("Failed to copy code!");
+        });
+    }
+</script>
+
+
+
+
+
+    </main>
+    <footer>
+      <!-- place footer here -->
+    </footer>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

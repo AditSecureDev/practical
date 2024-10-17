@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      pre {
+        background-color: #282c34;
+        color: #61dafb;
+        padding: 15px;
+        border-radius: 5px;
+        font-size: 14px;
+        overflow-x: auto;
+      }
+      .copy-btn {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <!-- place navbar here -->
+    </header>
+    <nav
+        class="navbar navbar-expand-sm navbar-light bg-light"
+    >
+        <div class="container">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button
+                class="navbar-toggler d-lg-none"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapsibleNavId"
+                aria-controls="collapsibleNavId"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html" aria-current="page"
+                            >INS
+                            <span class="visually-hidden">(current)</span></a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">AI</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gp.html">GP</a>
+                    </li>
+                    
+                </ul>
+                <form class="d-flex my-2 my-lg-0">
+                    <input
+                        class="form-control me-sm-2"
+                        type="text"
+                        placeholder="Search"
+                    />
+                    <button
+                        class="btn btn-outline-success my-2 my-sm-0"
+                        type="submit"
+                    >
+                        Search
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <h2>Pratical no 1 </h2>
+    <div class="card position-relative mt-4">
+    <div class="card-header bg-info text-white">
+        C# Direct3D Application Example
+    </div>
+    <div class="card-body">
+        <button class="btn btn-secondary copy-btn" onclick="copyDirect3DCode()">Copy Code</button>
+        <pre id="direct3d-code">
+using System; 
+using System.Collections.Generic; 
+using System.ComponentModel; 
+using System.Data; 
+using System.Drawing; 
+using System.Text; 
+using System.Windows.Forms; 
+using Microsoft.DirectX; 
+using Microsoft.DirectX.Direct3D; 
+
+namespace pract1 
+{ 
+    public partial class Form1 : Form 
+    { 
+        Microsoft.DirectX.Direct3D.Device device; 
+
+        public Form1() 
+        { 
+            InitializeComponent(); 
+            InitDevice(); 
+        } 
+
+        private void InitDevice() 
+        { 
+            PresentParameters pp = new PresentParameters(); 
+            pp.Windowed = true; 
+            pp.SwapEffect = SwapEffect.Discard; 
+            device = new Device(0, DeviceType.Hardware, this, CreateFlags.HardwareVertexProcessing, pp); 
+        } 
+
+        private void Form1_Load(object sender, EventArgs e) 
+        { 
+        } 
+
+        private void Form1_Paint(object sender, PaintEventArgs e) 
+        { 
+            render(); 
+        } 
+
+        private void render() 
+        { 
+            device.Clear(ClearFlags.Target, Color.Orange, 0, 1); 
+            device.Present(); 
+        } 
+    } 
+}
+        </pre>
+    </div>
+</div>
+
+<script>
+    function copyDirect3DCode() {
+        var code = document.getElementById("direct3d-code").innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            alert("Code copied to clipboard!");
+        }).catch(() => {
+            alert("Failed to copy code!");
+        });
+    }
+</script>
+
+
+<h2>Pratical no 2 </h2>
+<div class="card position-relative mt-4">
+    <div class="card-header bg-info text-white">
+        C# Direct3D Triangle Rendering Example
+    </div>
+    <div class="card-body">
+        <button class="btn btn-secondary copy-btn" onclick="copyTriangleRenderingCode()">Copy Code</button>
+        <pre id="triangle-rendering-code">
+using Microsoft.DirectX;
+using Microsoft.DirectX.Direct3D;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace Pract2
+{
+    public partial class Form1 : Form
+    {
+        Microsoft.DirectX.Direct3D.Device device;
+
+        public Form1()
+        {
+            InitializeComponent();
+            InitDevice();
+        }
+
+        private void InitDevice()
+        {
+            PresentParameters pp = new PresentParameters
+            {
+                Windowed = true,
+                SwapEffect = SwapEffect.Discard
+            };
+
+            // Initialize the Direct3D device
+            device = new Device(0, DeviceType.Hardware, this, CreateFlags.HardwareVertexProcessing, pp);
+        }
+
+        public void Render()
+        {
+            // Define vertices for the triangle
+            CustomVertex.TransformedColored[] vertexes = new CustomVertex.TransformedColored[3];
+            vertexes[0].Position = new Vector4(200, 100, 0, 1.0f); // First point
+            vertexes[0].Color = Color.FromArgb(0, 255, 0).ToArgb(); // Green color
+
+            vertexes[1].Position = new Vector4(200, 300, 0, 1.0f); // Second point
+            vertexes[1].Color = Color.FromArgb(0, 0, 255).ToArgb(); // Blue color
+
+            vertexes[2].Position = new Vector4(90, 200, 0, 1.0f); // Third point
+            vertexes[2].Color = Color.FromArgb(255, 0, 0).ToArgb(); // Red color
+
+            // Clear the back buffer to orange
+            device.Clear(ClearFlags.Target, Color.Orange, 0, 1);
+            device.BeginScene();
+
+            // Set the vertex format and draw the triangle
+            device.VertexFormat = CustomVertex.TransformedColored.Format;
+            device.DrawUserPrimitives(PrimitiveType.TriangleList, 1, vertexes);
+
+            device.EndScene();
+            device.Present();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // Optionally perform additional setup on load
+        }
+
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+            // Call the Render method whenever the form needs repainting
+            Render();
+        }
+    }
+}
+        </pre>
+    </div>
+</div>
+
+<script>
+    function copyTriangleRenderingCode() {
+        var code = document.getElementById("triangle-rendering-code").innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            alert("Code copied to clipboard!");
+        }).catch(() => {
+            alert("Failed to copy code!");
+        });
+    }
+</script>
+
+
+<h2>Practical no 3 </h2>
+<div class="card position-relative mt-4">
+    <div class="card-header bg-info text-white">
+        C# Direct3D Textured Triangle Rendering Example
+    </div>
+    <div class="card-body">
+        <button class="btn btn-secondary copy-btn" onclick="copyTexturedTriangleCode()">Copy Code</button>
+        <pre id="textured-triangle-code">
+using System; 
+using System.Collections.Generic; 
+using System.ComponentModel; 
+using System.Data; 
+using System.Drawing; 
+using System.Text; 
+using System.Windows.Forms; 
+using Microsoft.DirectX; 
+using Microsoft.DirectX.Direct3D; 
+
+namespace Pract3 
+{ 
+    public partial class Form1 : Form 
+    { 
+        Microsoft.DirectX.Direct3D.Device device; 
+
+        public Form1() 
+        { 
+            InitializeComponent(); 
+            InitDevice(); 
+        } 
+
+        private void InitDevice() 
+        { 
+            PresentParameters pp = new PresentParameters(); 
+            pp.Windowed = true; 
+            pp.SwapEffect = SwapEffect.Discard; 
+            device = new Device(0, DeviceType.Hardware, this, CreateFlags.HardwareVertexProcessing, pp); 
+        } 
+
+        private void Form1_Load(object sender, EventArgs e) 
+        { 
+        } 
+
+        private void Form1_Paint(object sender, PaintEventArgs e) 
+        { 
+            Render(); 
+        } 
+
+        private void Render() 
+        { 
+            CustomVertex.PositionTextured[] vertexes = new CustomVertex.PositionTextured[3]; 
+
+            device.Transform.Projection = Matrix.PerspectiveFovLH(3.14f / 4, device.Viewport.Width / device.Viewport.Height, 1f, 1000f); 
+            device.Transform.View = Matrix.LookAtLH(new Vector3(0, 0, 5), new Vector3(0, 0, 0), new Vector3(0, 1, 0)); 
+            device.RenderState.Lighting = false; 
+
+            vertexes[0] = new CustomVertex.PositionTextured(new Vector3(0, 1, 1), 0, 0); 
+            vertexes[1] = new CustomVertex.PositionTextured(new Vector3(-1, -1, 1), -1, 0); 
+            vertexes[2] = new CustomVertex.PositionTextured(new Vector3(1, -1, 1), 0, -1); 
+
+            Texture texture = new Texture(device, new Bitmap("C:/Users/Admin/Downloads/texture.jpg"), 0, Pool.Managed); 
+
+            device.Clear(ClearFlags.Target, Color.Orange, 0, 1); 
+            device.BeginScene(); 
+            device.SetTexture(0, texture); 
+            device.VertexFormat = CustomVertex.PositionTextured.Format; 
+            device.DrawUserPrimitives(PrimitiveType.TriangleList, 1, vertexes); 
+            device.EndScene(); 
+            device.Present(); 
+        } 
+    } 
+}
+        </pre>
+    </div>
+</div>
+
+<script>
+    function copyTexturedTriangleCode() {
+        var code = document.getElementById("textured-triangle-code").innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            alert("Code copied to clipboard!");
+        }).catch(() => {
+            alert("Failed to copy code!");
+        });
+    }
+</script>
+
+
+
+<h2>Pratical no 4 & 5</h2>
+<div class="card position-relative mt-4">
+    <div class="card-header bg-info text-white">
+        C# Direct3D Colored Triangle with Lighting Example
+    </div>
+    <div class="card-body">
+        <button class="btn btn-secondary copy-btn" onclick="copyColoredTriangleCode()">Copy Code</button>
+        <pre id="colored-triangle-code">
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using Microsoft.DirectX;
+using Microsoft.DirectX.Direct3D;
+
+namespace Pract5
+{
+    public partial class Form1 : Form
+    {
+        Microsoft.DirectX.Direct3D.Device device;
+        private CustomVertex.PositionNormalColored[] vertex = new CustomVertex.PositionNormalColored[3];
+
+        public Form1()
+        {
+            InitializeComponent();
+            InitDevice();
+        }
+
+        private void InitDevice()
+        {
+            PresentParameters pp = new PresentParameters();
+            pp.Windowed = true;
+            pp.SwapEffect = SwapEffect.Discard;
+            device = new Device(0, DeviceType.Hardware, this, CreateFlags.HardwareVertexProcessing, pp);
+        }
+
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+            Render();
+        }
+
+        private void Render()
+        {
+            CustomVertex.PositionNormalColored[] vertexes = new CustomVertex.PositionNormalColored[3];
+            device.Transform.Projection = Matrix.PerspectiveFovLH(3.14f / 4, device.Viewport.Width / device.Viewport.Height, 1f, 1000f);
+            device.Transform.View = Matrix.LookAtLH(new Vector3(0, 0, 5), new Vector3(), new Vector3(0, 1, 0)); 
+            device.RenderState.Lighting = false;
+
+            vertexes[0] = new CustomVertex.PositionNormalColored(new Vector3(0, 1, 1), new Vector3(1, 0, 1), Color.OrangeRed.ToArgb()); 
+            vertexes[1] = new CustomVertex.PositionNormalColored(new Vector3(-1, -1, 1), new Vector3(1, 0, 1), Color.White.ToArgb()); 
+            vertexes[2] = new CustomVertex.PositionNormalColored(new Vector3(1, -1, 1), new Vector3(-1, 0, 1), Color.LawnGreen.ToArgb());
+
+            device.Lights[0].Type = LightType.Directional;
+            device.Lights[0].Specular = Color.Plum;
+            device.Lights[0].Direction = new Vector3(0.8f, 0, -1);
+            device.Lights[0].Enabled = true;
+
+            device.Clear(ClearFlags.Target, Color.Cyan, 0, 1);
+            device.BeginScene();
+            device.VertexFormat = CustomVertex.PositionNormalColored.Format;
+            device.DrawUserPrimitives(PrimitiveType.TriangleList, vertexes.Length / 3, vertexes); 
+            device.EndScene();
+            device.Present();
+        }
+
+        private void Pract5(object sender, EventArgs e)
+        {
+        }
+    }
+}
+        </pre>
+    </div>
+</div>
+
+<script>
+    function copyColoredTriangleCode() {
+        var code = document.getElementById("colored-triangle-code").innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            alert("Code copied to clipboard!");
+        }).catch(() => {
+            alert("Failed to copy code!");
+        });
+    }
+</script>
+
+
+
+<h2>Practical no 6</h2>
+<div class="card position-relative mt-4">
+    <div class="card-header bg-info text-white">
+        Practical 6 - Loading Models into DirectX 11 and Rendering
+    </div>
+    <div class="card-body">
+        <button class="btn btn-secondary copy-btn" onclick="copyDirectXModelCode()">Copy Code</button>
+        <pre id="directx-model-code">
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using Microsoft.DirectX;
+using Microsoft.DirectX.Direct3D;
+
+namespace Pract6
+{
+    public partial class Form1 : Form
+    {
+        Microsoft.DirectX.Direct3D.Device device;
+        Microsoft.DirectX.Direct3D.Font font;
+        // Microsoft.DirectX.Direct3D.Texture texture;
+
+        public Form1()
+        {
+            InitializeComponent();
+            InitDevice();
+        }
+
+        private void InitDevice()
+        {
+            PresentParameters pp = new PresentParameters();
+            pp.Windowed = true;
+            pp.SwapEffect = SwapEffect.Discard;
+            device = new Device(0, DeviceType.Hardware, this, CreateFlags.HardwareVertexProcessing, pp);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+            Render();
+        }
+
+        private void Render()
+        {
+            Texture texture = new Texture(device, new Bitmap("C:/Users/Admin/Downloads/texture.jpg"), 0, Pool.Managed);
+            System.Drawing.Font f = new System.Drawing.Font("Times New Roman", 40f, FontStyle.Bold); 
+            font = new Microsoft.DirectX.Direct3D.Font(device, f);
+            
+            device.Clear(ClearFlags.Target, Color.OrangeRed, 0, 1);
+            device.BeginScene();
+
+            using (Sprite s = new Sprite(device))
+            {
+                s.Begin(SpriteFlags.AlphaBlend);
+                s.Draw2D(texture, new Rectangle(0, 0, 0, 0), new Rectangle(0, 0, device.Viewport.Width, device.Viewport.Height), new Point(0, 0), 0f, new Point(0, 0), Color.AliceBlue);
+                font.DrawText(s, "Game Programming with DirectX tycs", new Point(40, 175), Color.Green);
+                s.End(); 
+            }
+
+            device.EndScene();
+            device.Present();
+        }
+    }
+}
+        </pre>
+    </div>
+</div>
+
+<script>
+    function copyDirectXModelCode() {
+        var code = document.getElementById("directx-model-code").innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            alert("Code copied to clipboard!");
+        }).catch(() => {
+            alert("Failed to copy code!");
+        });
+    }
+</script>
+
+
+
+<h2>Practical no 7</h2>
+<div class="card position-relative mt-4">
+    <div class="card-header bg-info text-white">
+        Practical No 7 - Unity Movement Script
+    </div>
+    <div class="card-body">
+        <button class="btn btn-secondary copy-btn" onclick="copyUnityMovementCode()">Copy Code</button>
+        <pre id="unity-movement-code">
+using System.Collections;  
+using System.Collections.Generic;  
+using UnityEngine;   
+
+public class move : MonoBehaviour {  
+    public float xForce = 10.0f;  
+    public float zForce = 10.0f;  
+    public float yForce = 500.0f;  
+
+    // Use this for initialization  
+    void Start () {  
+    }  
+
+    // Update is called once per frame  
+    void Update () {  
+        // This is for x axis movement  
+        float x = 0.0f;  
+        if (Input.GetKey (KeyCode.A)) {  
+            x = x - xForce;  
+        }  
+        if (Input.GetKey (KeyCode.D)) {  
+            x = x + xForce;  
+        }  
+
+        // This is for z axis movement  
+        float z = 0.0f;  
+        if (Input.GetKey (KeyCode.S)) {  
+            z = z - zForce;  
+        }  
+        if (Input.GetKey (KeyCode.W)) {  
+            z = z + zForce;  
+        }  
+
+        // This is for y axis movement  
+        float y = 0.0f;  
+        if (Input.GetKeyDown (KeyCode.Space)) {  
+            y = yForce;  
+        }  
+
+        GetComponent<Rigidbody>().AddForce(x, y, z);  
+    }  
+}
+        </pre>
+    </div>
+</div>
+
+<script>
+    function copyUnityMovementCode() {
+        var code = document.getElementById("unity-movement-code").innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            alert("Code copied to clipboard!");
+        }).catch(() => {
+            alert("Failed to copy code!");
+        });
+    }
+</script>
+
+
+<h2>Practical no 8</h2>
+<div class="card position-relative mt-4">
+    <div class="card-header bg-info text-white">
+        Practical No 8 - Unity Rotate Script
+    </div>
+    <div class="card-body">
+        <button class="btn btn-secondary copy-btn" onclick="copyUnityRotateCode()">Copy Code</button>
+        <pre id="unity-rotate-code">
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Rotate : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.Rotate(new Vector3(15, 30, 45) * Time.deltaTime);
+    }
+}
+        </pre>
+    </div>
+</div>
+
+<script>
+    function copyUnityRotateCode() {
+        var code = document.getElementById("unity-rotate-code").innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            alert("Code copied to clipboard!");
+        }).catch(() => {
+            alert("Failed to copy code!");
+        });
+    }
+</script>
+
+
+<h2>Practical no 9</h2>
+<div class="card position-relative mt-4">
+    <div class="card-header bg-info text-white">
+        Practical No 9 - Unity Move Script
+    </div>
+    <div class="card-body">
+        <button class="btn btn-secondary copy-btn" onclick="copyUnityMoveCode()">Copy Code</button>
+        <pre id="unity-move-code">
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Move : MonoBehaviour
+{
+    public float speed;
+    private Rigidbody rb;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    void FixedUpdate()
+    {
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+        Vector3 mov = new Vector3(moveHorizontal, 0.0f, moveVertical);
+        rb.AddForce(mov * speed);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("PickUp"))
+        {
+            other.gameObject.SetActive(false);
+        }
+    }
+
+    void Update()
+    {
+    }
+}
+        </pre>
+    </div>
+</div>
+
+<script>
+    function copyUnityMoveCode() {
+        var code = document.getElementById("unity-move-code").innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            alert("Code copied to clipboard!");
+        }).catch(() => {
+            alert("Failed to copy code!");
+        });
+    }
+</script>
+
+
+<h2>Practical no 10</h2>
+<div class="card position-relative mt-4">
+    <div class="card-header bg-success text-white">
+        Practical No 10 - Unity Roll Script
+    </div>
+    <div class="card-body">
+        <button class="btn btn-secondary copy-btn" onclick="copyUnityRollCode()">Copy Code</button>
+        <pre id="unity-roll-code">
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Roll : MonoBehaviour
+{
+    public float speed;
+    private Rigidbody rb;
+    private int count;
+    public Text CountText;
+    public Text WinText;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        count = 0;
+        setCountText();
+        WinText.text = "";
+    }
+
+    void FixedUpdate()
+    {
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+        Vector3 mov = new Vector3(moveHorizontal, 0.0f, moveVertical);
+        rb.AddForce(mov * speed);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("PickUp"))
+        {
+            other.gameObject.SetActive(false);
+            count = count + 1;
+            setCountText();
+        }
+    }
+
+    void setCountText()
+    {
+        CountText.text = "Count: " + count.ToString();
+        if (count >= 3)
+        {
+            WinText.text = "You Win";
+        }
+    }
+
+    void Update()
+    {
+    }
+}
+        </pre>
+    </div>
+</div>
+
+<script>
+    function copyUnityRollCode() {
+        var code = document.getElementById("unity-roll-code").innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            alert("Code copied to clipboard!");
+        }).catch(() => {
+            alert("Failed to copy code!");
+        });
+    }
+</script>
+
+
+    
+    <footer>
+      <!-- place footer here -->
+    </footer>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
